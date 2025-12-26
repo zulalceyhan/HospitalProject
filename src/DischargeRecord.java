@@ -8,5 +8,4 @@ public class DischargeRecord {
     public String toString() {
         return "Discharge Record [ID: " + patientId + "]";
     }
-
 }

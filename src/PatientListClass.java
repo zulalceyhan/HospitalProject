@@ -2,30 +2,22 @@ public class PatientListClass {
     Node head = null;
     Node tail = null;
 
-    public PatientListClass(){
-        head = null;
-        tail = null;
-    }
-    private class Node {
-        Patient data ;
+     public class Node {
+        Patient data;
         Node next;
-        public Node (Patient data){
+        public Node(Patient data) {
             this.data = data;
             this.next = null;
         }
     }
-
-    public void addPatient(Patient p){
+    public void addPatient(Patient p) {
         Node newNode = new Node(p);
-        if (head == null) {// list is empty
-            System.out.println("The first patient added the list.");
+        if (head == null) {
             head = newNode;
             tail = newNode;
-
-        }else{
+        } else {
             tail.next = newNode;
-            newNode= tail;
-            System.out.println("New patient add the end of the list.");
+            tail = newNode; // DÜZELTİLDİ: tail güncellendi
         }
     }
     public void removePatient(int id){
@@ -40,33 +32,36 @@ public class PatientListClass {
                 head = head.next;
                 System.out.println(id + " patient removed from the list.");
             }else{
-                 Node temp = head ;
-                 while ((temp.next != null) && (id != temp.next.data.id)) {
-                     temp = temp.next;
-                 }
-                 if (temp.next != null){
-                     temp.next = temp.next.next;
-                 }
-                 System.out.println("patient removed from the list:" + id);
+                Node temp = head ;
+                while ((temp.next != null) && (id != temp.next.data.id)) {
+                    temp = temp.next;
+                }
+                if (temp.next != null){
+                    temp.next = temp.next.next;
+                }
+                System.out.println("patient removed from the list:" + id);
             }
         }
     }
-    public int findPatient(int id ) {
+    public void findPatient(int id) {
         Node current = head;
-        while (current != null){
-            if (id == current.data.id){
-                System.out.println("Founded patient : " + id );
-            }else{
-                System.out.println("The patient searched is not present here.");
+        boolean found = false;
+        while (current != null) {
+            if (current.data.id == id) {
+                System.out.println("Found patient: " + current.data);
+                found = true;
+                break;
             }
+            current = current.next; // DÜZELTİLDİ: Döngü içine alındı
         }
-        current =current.next;
-        return id;
+        if (!found) {
+            System.out.println("The patient searched (ID: " + id + ") is not present here.");
+        }
     }
-    public void printList(){
+    public void printList() {
+        System.out.println("\n--- FINAL PATIENT LIST ---"); // Başlık döngü dışına alındı
         Node temp = head;
-        while (temp != null){
-            System.out.println("Patient List ");
+        while (temp != null) {
             System.out.println(temp.data);
             temp = temp.next;
         }
